@@ -1,8 +1,10 @@
 import requests
+import os
 
 
-API_KEY = "AIzaSyBHwQKmfheRUOkC3eWTPMYWj4lKy5ElJc4" 
-
+API_KEY = os.getenv("API_KEY")
+if API_KEY is None:
+    raise ValueError("API_KEY tidak ditemukan di environment variable")
 
 def search_videos(query, max_results=10):
     """Mencari video berdasarkan query keyword."""
