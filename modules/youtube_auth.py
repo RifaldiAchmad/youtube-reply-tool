@@ -10,6 +10,23 @@ CREDENTIALS_FILE = "client_secrets.json"
 TOKEN_FILE = "token.json"
 
 
+if not os.path.exists(CREDENTIALS_FILE):
+    creds = st.secrets["google_oauth"]
+    credentials_data = {
+        "installed": {
+            "client_id": creds["client_id"],
+            "project_id": creds["project_id"],
+            "auth_uri": creds["auth_uri"],
+            "token_uri": creds["token_uri"],
+            "auth_provider_x509_cert_url": creds["auth_provider_x509_cert_url"],
+            "client_secret": creds["client_secret"],
+            "redirect_uris": creds["redirect_uris"]
+        }
+    }
+    with open(CREDENTIALS_FILE, "w") as f:
+        json.dump(credentials_data, f, indent=2)
+
+
 def get_authenticated_service():
     """Mengembalikan kredensial yang telah diautentikasi."""
     credentials = None
